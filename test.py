@@ -45,9 +45,6 @@ def eval_model(working_dir: str, model: DeepSpeakerModel):
     # could apply softmax here.
     y_true = np.zeros_like(y_pred)  # positive is at index 0.
     y_true[:, 0] = 1.0
-    print(np.matrix(y_true))
-    print(np.matrix(y_pred))
-    print(np.min(y_pred), np.max(y_pred))
     fm, tpr, acc, eer = evaluate(y_pred, y_true)
     return fm, tpr, acc, eer
 
