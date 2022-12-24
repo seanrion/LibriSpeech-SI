@@ -22,6 +22,6 @@ WORKING_DIR = os.path.join(os.getcwd(),'cache_dir')
 AUDIO_DIR = os.path.join(os.getcwd(),'audio_dir')
 SILENCE_THRESHOLD_FILE = 'silence_threshold.txt'
 
-
+KERAS_DIR = os.path.join(WORKING_DIR,'keras-inputs')
 COUNTS_PER_SPEAKER = '600,100'
 

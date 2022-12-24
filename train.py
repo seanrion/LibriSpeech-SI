@@ -8,7 +8,7 @@ from keras.optimizers import SGD
 from tqdm import tqdm
 
 from batcher import KerasFormatConverter, LazyTripletBatcher
-from Constant import BATCH_SIZE, CHECKPOINTS_SOFTMAX_DIR, CHECKPOINTS_TRIPLET_DIR, NUM_FRAMES, NUM_FBANKS
+from Constant import BATCH_SIZE, CHECKPOINTS_SOFTMAX_DIR, CHECKPOINTS_TRIPLET_DIR, NUM_FRAMES, NUM_FBANKS,KERAS_DIR
 from conv_models import DeepSpeakerModel
 from triplet_loss import deep_speaker_loss
 from utils import load_best_checkpoint, ensures_dir
@@ -108,10 +108,10 @@ def start_training(working_dir, pre_training_phase=True):
             # some of the layers have changed.
             dsm.m.load_weights(pre_training_checkpoint, by_name=True)
         dsm.m.compile(optimizer=SGD(), loss=deep_speaker_loss)
-        fit_model(dsm, working_dir, NUM_FRAMES)
+        fit_model(dsm, os.path.join(working_dir,'train'), NUM_FRAMES)
 
 from Constant import WORKING_DIR
 import os
 if __name__ == '__main__':
-    start_training(os.path.join(WORKING_DIR,'train'))
+    start_training(WORKING_DIR,False)
 

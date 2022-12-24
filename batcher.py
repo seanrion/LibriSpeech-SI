@@ -32,6 +32,7 @@ def sample_from_mfcc(mfcc, max_length):
 
 def sample_from_mfcc_file(utterance_file, max_length):
     mfcc = np.load(utterance_file)
+
     return sample_from_mfcc(mfcc, max_length)
 
 
@@ -41,6 +42,7 @@ class KerasFormatConverter:
         self.working_dir = working_dir
         self.output_dir = os.path.join(self.working_dir, 'keras-inputs')
         ensures_dir(self.output_dir)
+        self.working_dir = os.path.join(self.working_dir,'train')
         self.categorical_speakers = load_pickle(os.path.join(self.output_dir, 'categorical_speakers.pkl'))
         if not load_test_only:
             self.kx_train = load_npy(os.path.join(self.output_dir, 'kx_train.npy'))

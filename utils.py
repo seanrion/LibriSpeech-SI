@@ -4,7 +4,7 @@ import random
 import shutil
 from glob import glob
 
-import click
+
 import dill
 import numpy as np
 import pandas as pd
@@ -39,29 +39,6 @@ def ensure_dir_for_filename(filename: str):
 def ensures_dir(directory: str):
     if len(directory) > 0 and not os.path.exists(directory):
         os.makedirs(directory)
-
-
-class ClickType:
-
-    @staticmethod
-    def input_file(writable=False):
-        return click.Path(exists=True, file_okay=True, dir_okay=False,
-                          writable=writable, readable=True, resolve_path=True)
-
-    @staticmethod
-    def input_dir(writable=False):
-        return click.Path(exists=True, file_okay=False, dir_okay=True,
-                          writable=writable, readable=True, resolve_path=True)
-
-    @staticmethod
-    def output_file():
-        return click.Path(exists=False, file_okay=True, dir_okay=False,
-                          writable=True, readable=True, resolve_path=True)
-
-    @staticmethod
-    def output_dir():
-        return click.Path(exists=False, file_okay=False, dir_okay=True,
-                          writable=True, readable=True, resolve_path=True)
 
 
 def parallel_function(f, sequence, num_threads=None):

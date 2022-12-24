@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 from audio import Audio
 from batcher import LazyTripletBatcher
-from Constant import NUM_FBANKS, NUM_FRAMES, CHECKPOINTS_TRIPLET_DIR, BATCH_SIZE
+from Constant import NUM_FBANKS, NUM_FRAMES, CHECKPOINTS_TRIPLET_DIR, BATCH_SIZE,CHECKPOINTS_SOFTMAX_DIR
 from conv_models import DeepSpeakerModel
 from eval_metrics import evaluate
 from utils import load_best_checkpoint, enable_deterministic
@@ -72,4 +72,4 @@ import os
 from Constant import WORKING_DIR
 if __name__ == '__main__':
 
-    test(os.path.join(WORKING_DIR,'train'))
+    test(os.path.join(WORKING_DIR,'train'),os.path.join(CHECKPOINTS_SOFTMAX_DIR,'ResCNN_checkpoint_106.h5'))

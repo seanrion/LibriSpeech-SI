@@ -14,16 +14,15 @@ from utils import find_files, ensures_dir, ensure_dir_for_filename
 logger = logging.getLogger(__name__)
 logging.basicConfig(format='%(asctime)12s - %(levelname)s - %(message)s', level=logging.INFO)
 
-
-
 def read_mfcc(input_filename, sample_rate, silence_threshold=None):
-
     audio = Audio.read(input_filename, sample_rate)
     energy = np.abs(audio)
     if(silence_threshold==None):
         silence_threshold = np.percentile(energy, 95)
     offsets = np.where(energy > silence_threshold)[0]
-    # 去除低于门槛的音频数据，门槛设为前95%
+    # left_blank_duration_ms = (1000.0 * offsets[0]) // self.sample_rate  # frame_id to duration (ms)
+    # right_blank_duration_ms = (1000.0 * (len(audio) - offsets[-1])) // self.sample_rate
+    # TODO: could use trim_silence() here or a better VAD.
     audio_voice_only = audio[offsets[0]:offsets[-1]]
     mfcc = mfcc_fbank(audio_voice_only, sample_rate)
     return mfcc
@@ -35,7 +34,6 @@ def test_silence_threshold(input_filename, sample_rate):
     return silence_threshold
 
 def test_audio_silence_threshold(audio_dir, sample_rate):
-
     ensures_dir(audio_dir)
     silence_threshold = dict()
     with tqdm(find_files(audio_dir, ext='flac')) as bar:
@@ -68,17 +66,19 @@ class Audio:
 
     @staticmethod
     def trim_silence(audio, threshold):
+        """Removes silence at the beginning and end of a sample."""
         energy = librosa.feature.rms(audio)
         frames = np.nonzero(np.array(energy > threshold))
         indices = librosa.core.frames_to_samples(frames)[1]
 
+        # Note: indices can be an empty array, if the whole audio was silence.
         audio_trim = audio[0:0]
         left_blank = audio[0:0]
         right_blank = audio[0:0]
         if indices.size:
             audio_trim = audio[indices[0]:indices[-1]]
-            left_blank = audio[:indices[0]] 
-            right_blank = audio[indices[-1]:]  
+            left_blank = audio[:indices[0]]  # slice before.
+            right_blank = audio[indices[-1]:]  # slice after.
         return audio_trim, left_blank, right_blank
 
     @staticmethod
@@ -88,7 +88,6 @@ class Audio:
         return audio
 
     def build_cache(self, audio_dir, sample_rate):
-
         logger.info(f'audio_dir: {audio_dir}.')
         logger.info(f'sample_rate: {sample_rate:,} hz.')
         audio_files = find_files(audio_dir, ext=self.ext)
@@ -117,7 +116,7 @@ class Audio:
                 logger.error(e)
 
 
-def pad_mfcc(mfcc, max_length): 
+def pad_mfcc(mfcc, max_length):  # num_frames, nfilt=64.
     if len(mfcc) < max_length:
         mfcc = np.vstack((mfcc, np.tile(np.zeros(mfcc.shape[1]), (max_length - len(mfcc), 1))))
     return mfcc
@@ -130,7 +129,7 @@ def mfcc_fbank(signal: np.array, sample_rate: int):  # 1D signal array.
     # delta_1 = delta(filter_banks, N=1)
     # delta_2 = delta(delta_1, N=1)
     # frames_features = np.transpose(np.stack([filter_banks, delta_1, delta_2]), (1, 2, 0))
-    return np.array(frames_features, dtype=np.float32) 
+    return np.array(frames_features, dtype=np.float32)  # Float32 precision is enough here.
 
 
 def normalize_frames(m, epsilon=1e-12):

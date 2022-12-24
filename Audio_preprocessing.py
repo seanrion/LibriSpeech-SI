@@ -17,4 +17,4 @@ def build_audio_cache(working_dir, audio_dir, sample_rate):
 
 if __name__ == '__main__':
     # test_audio_silence_threshold(AUDIO_DIR, SAMPLE_RATE)
-    build_audio_cache(WORKING_DIR,AUDIO_DIR,SAMPLE_RATE)
+    build_audio_cache(os.path.join(WORKING_DIR,'train'),os.path.join(AUDIO_DIR,'train'),SAMPLE_RATE)

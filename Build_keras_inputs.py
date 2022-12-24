@@ -11,4 +11,4 @@ def build_keras_inputs(working_dir, counts_per_speaker):
     kc.persist_to_disk()
 
 if __name__ == '__main__':
-    build_keras_inputs(os.path.join(WORKING_DIR,'train'), COUNTS_PER_SPEAKER)
+    build_keras_inputs(WORKING_DIR, COUNTS_PER_SPEAKER)
