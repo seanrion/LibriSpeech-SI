@@ -1,0 +1,7 @@
+_trainlog.txt
+_pretrainlog.txt
+_convertlog.py
+audio_dir/
+cache_dir/
+checkpoints-softmax/
+checkpoints-triplets/
