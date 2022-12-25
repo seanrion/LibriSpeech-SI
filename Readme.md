@@ -6,21 +6,22 @@
 │  Build_keras_inputs.py
 │  Constant.py
 │  conv_models.py
-│  dir.txt
 │  eval_metrics.py
 │  example.py
 │  Mix_train_set_and_noise.py
 │  Readme.md
 │  requirements.txt
-│  ResCNN_triplet_training_checkpoint_265.h5
 │  silence_threshold.txt
 │  test.py
 │  train.py
 │  triplet_loss.py
 │  utils.py
 |  predict.py
+|  eval_models.py
 |  trainlog.csv
 |  pretrainlog.csv
+|  pretrain_models_eval.csv
+|  train_models_eval.csv
 ├─audio_dir
 │  ├─noise
 │  ├─test
@@ -66,6 +67,8 @@
 `predict.py` 预测
 
 `trainlog.csv`,`pretrainlog.csv` 训练模型和预训练模型的训练log
+
+`pretrain_models_eval.csv`,`train_models_eval.csv` 模型的评估数据
 # 使用顺序
 
 ```shell
@@ -85,6 +88,10 @@ python train.py
 ```
 训练
 ```shell
+python eval_models.py
+```
+评估模型
+```shell
 python test.py
 ```
 测试
@@ -99,5 +106,6 @@ python predict.py
 - [x] 音频文件预处理生成数组数据
 - [x] 生成批采样结果
 - [x] 训练
-- [ ] 测试
+- [x] 评估模型
+- [x] 测试
 - [ ] 预测
