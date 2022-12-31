@@ -67,7 +67,7 @@ def inference(working_dir, checkpoint_file=None):
     anchor_test = inference_model(working_dir, model=dsm)
     anchor_test = [str(i) for i in anchor_test]  #转str
     anchor_test = '\r'.join(anchor_test)  #逗号分隔
-    with open('2.txt', 'a', encoding='utf8') as f:  #写入
+    with open('test_prediction.txt', 'a', encoding='utf8') as f:  #写入
 	    f.writelines(anchor_test+'\n')
 import os
 from Constant import WORKING_DIR
