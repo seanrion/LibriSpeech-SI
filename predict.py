@@ -38,7 +38,7 @@ def inference_model(working_dir: str, model: DeepSpeakerModel):
     test_audio_paths=sorted(glob.glob(os.path.join('./audio_dir/test/test*.flac')))
     scores_test=np.zeros(len(test_audio_paths))
     anchor_test=[]
-    for i in tqdm(range(10) ,desc='predict'):
+    for i in tqdm(range(len(test_audio_paths)) ,desc='predict'):
         test_audio_path=test_audio_paths[i]
         mfcc_tmp=sample_from_mfcc(read_mfcc(test_audio_path, SAMPLE_RATE), NUM_FRAMES)
         test_audio=model.m.predict(np.expand_dims(mfcc_tmp, axis=0))
