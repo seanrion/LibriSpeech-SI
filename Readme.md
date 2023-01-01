@@ -16,10 +16,6 @@
 │  utils.py
 |  predict.py
 |  eval_models.py
-|  trainlog.csv
-|  pretrainlog.csv
-|  pretrain_models_eval.csv
-|  train_models_eval.csv
 ├─audio_dir
 │  ├─noise
 │  ├─test
@@ -65,10 +61,6 @@
 `eval_models.py` 评估模型
 
 `predict.py` 预测
-
-`trainlog.csv`,`pretrainlog.csv` 训练模型和预训练模型的训练log
-
-`pretrain_models_eval.csv`,`train_models_eval.csv` 模型的评估数据
 # 使用顺序
 
 ```shell
