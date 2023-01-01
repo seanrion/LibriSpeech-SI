@@ -7,9 +7,7 @@
 │  Constant.py
 │  conv_models.py
 │  eval_metrics.py
-│  example.py
 │  Mix_train_set_and_noise.py
-│  Readme.md
 │  requirements.txt
 │  silence_threshold.txt
 │  test.py
@@ -64,6 +62,8 @@
 
 `utils.py` 存放常用函数
 
+`eval_models.py` 评估模型
+
 `predict.py` 预测
 
 `trainlog.csv`,`pretrainlog.csv` 训练模型和预训练模型的训练log
@@ -108,4 +108,4 @@ python predict.py
 - [x] 训练
 - [x] 评估模型
 - [x] 测试
-- [ ] 预测
+- [x] 预测
